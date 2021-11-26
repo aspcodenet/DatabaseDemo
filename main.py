@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask("__name__")
+app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:hejsan123@localhost/demo'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/demo'
 db = SQLAlchemy(app)
 
 
@@ -72,19 +72,19 @@ while True:
         db.session.add(b)
         db.session.commit()
     if sel == "2":
-        for m in Bil.query.all():
+        for m in Player.query.all():
             print(m.namn)
     if sel == "3":
-        for m in Bil.query.all():
+        for m in Player.query.all():
             print(f"{m.id} {m.namn}")
         sel = int(input("Vilken vill du uppdatera:"))
-        b = Bil.query.filter_by(id=sel).first()
+        b = Player.query.filter_by(id=sel).first()
         b.namn = input("Ange nytt namn:")
         db.session.commit()
     if sel == "4":
         search = input("Sök efter")
         print("Sökresultat")
-        for m in Bil.query.filter(Bil.namn.contains(search)).all():
+        for m in Player.query.filter(Player.namn.contains(search)).all():
             print(f"{m.id} {m.namn}")
         print("Slut sök")
 
